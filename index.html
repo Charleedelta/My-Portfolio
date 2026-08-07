@@ -15,6 +15,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <!-- Particles.js for the network background -->
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    
+    <!-- PyScript for Native Python in the Browser -->
+    <script type="module" src="https://pyscript.net/releases/2024.1.1/core.js"></script>
 
     <script>
         tailwind.config = {
@@ -227,6 +230,7 @@
                         <a href="#home" class="hover:text-primary transition-colors hover-target">Home</a>
                         <a href="#about" class="hover:text-primary transition-colors hover-target">About</a>
                         <a href="#skills" class="hover:text-primary transition-colors hover-target">Skills</a>
+                        <a href="#ai-lab" class="hover:text-secondary transition-colors hover-target">Live Lab</a>
                         <a href="#projects" class="hover:text-primary transition-colors hover-target">Projects</a>
                         <button onclick="openContactForm()" class="border border-primary text-primary px-4 py-2 rounded hover:bg-primary hover:text-darkBg transition-all hover-target">Connect</button>
                     </div>
@@ -245,7 +249,8 @@
                 <a href="#home" onclick="document.getElementById('mobile-menu').classList.add('hidden')" class="block px-4 py-3 hover:text-primary border-b border-slate-800/50 w-full text-left sm:text-center">01. Home</a>
                 <a href="#about" onclick="document.getElementById('mobile-menu').classList.add('hidden')" class="block px-4 py-3 hover:text-primary border-b border-slate-800/50 w-full text-left sm:text-center">02. About</a>
                 <a href="#skills" onclick="document.getElementById('mobile-menu').classList.add('hidden')" class="block px-4 py-3 hover:text-primary border-b border-slate-800/50 w-full text-left sm:text-center">03. Skills</a>
-                <a href="#projects" onclick="document.getElementById('mobile-menu').classList.add('hidden')" class="block px-4 py-3 hover:text-primary border-b border-slate-800/50 w-full text-left sm:text-center">04. Projects</a>
+                <a href="#ai-lab" onclick="document.getElementById('mobile-menu').classList.add('hidden')" class="block px-4 py-3 text-secondary hover:text-white border-b border-slate-800/50 w-full text-left sm:text-center">04. AI Lab</a>
+                <a href="#projects" onclick="document.getElementById('mobile-menu').classList.add('hidden')" class="block px-4 py-3 hover:text-primary border-b border-slate-800/50 w-full text-left sm:text-center">05. Projects</a>
                 <button onclick="openContactForm(); document.getElementById('mobile-menu').classList.add('hidden');" class="block px-4 py-3 text-primary border border-primary mx-4 mt-4 rounded hover:bg-primary hover:text-darkBg transition-all w-[calc(100%-2rem)]">Connect</button>
             </div>
         </div>
@@ -417,11 +422,76 @@
         </div>
     </section>
 
+    <!-- LIVE PYTHON AI LAB SECTION -->
+    <section id="ai-lab" class="py-16 md:py-24 px-4 sm:px-6 relative">
+        <div class="max-w-6xl mx-auto">
+            <div class="flex items-center gap-4 mb-10 md:mb-16 gs-reveal">
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold font-mono text-white whitespace-nowrap"><span class="text-secondary">04.</span> Interactive AI Terminal</h2>
+                <div class="h-px bg-slate-700 flex-grow"></div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 items-stretch gs-reveal">
+                <!-- Python Code Display -->
+                <div class="glass rounded-xl p-4 sm:p-6 border border-slate-700 shadow-2xl relative flex flex-col group hover:border-secondary/50 transition-colors">
+                    <div class="flex items-center justify-between mb-4 border-b border-slate-700 pb-2">
+                        <div class="flex gap-2">
+                            <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                        </div>
+                        <span class="text-xs font-mono text-slate-400">ai_assistant.py</span>
+                    </div>
+                    <pre class="font-mono text-xs sm:text-sm text-slate-300 overflow-x-auto flex-grow bg-darkBg/50 p-4 rounded-lg"><code class="language-python">
+<span class="text-purple-400">import</span> asyncio
+<span class="text-purple-400">from</span> js <span class="text-purple-400">import</span> window, document
+
+<span class="text-blue-400">async def</span> <span class="text-yellow-200">handle_chat</span>(event):
+    <span class="text-slate-500"># 1. Capture user input from UI</span>
+    query = get_input()
+    print_to_terminal(f"user: {query}")
+    
+    <span class="text-slate-500"># 2. Python awaits the Gemini LLM API fetch</span>
+    response = <span class="text-purple-400">await</span> window.fetchGeminiAPI(query)
+    
+    <span class="text-slate-500"># 3. Output neural network response</span>
+    print_to_terminal(f"AI: {response}")
+                    </code></pre>
+                    <div class="mt-4 text-xs text-textMuted font-mono">
+                        <i class="fas fa-info-circle text-primary"></i> This module uses PyScript to run a Python event loop in your browser, querying the live Gemini LLM network to answer questions about Chandan's expertise.
+                    </div>
+                </div>
+
+                <!-- Python Output Terminal -->
+                <div class="bg-[#0b0f19] rounded-xl p-4 sm:p-6 border-2 border-slate-800 shadow-2xl relative font-mono flex flex-col group hover:border-slate-600 transition-colors">
+                    <div class="flex items-center gap-2 mb-4 text-slate-500 text-xs border-b border-slate-800 pb-2 uppercase tracking-widest">
+                        <i class="fas fa-robot text-primary"></i> Live AI Assistant
+                    </div>
+                    
+                    <div id="py-output" class="text-green-400 text-xs sm:text-sm whitespace-pre-wrap overflow-y-auto flex-grow font-mono h-[200px] sm:h-[250px] mb-4">Initializing Python Environment...
+Loading PyScript WebAssembly...
+<span style="color:#00f0ff;">[SUCCESS] Connected to Gemini Neural Network.</span>
+
+Ask me anything about Data Science, Machine Learning, or Chandan's portfolio.
+Type your message below and press Send.
+</div>
+                    
+                    <div class="flex gap-2 mt-auto pt-2 border-t border-slate-800">
+                        <span class="text-primary self-center font-bold">></span>
+                        <input type="text" id="ai-input" class="flex-grow bg-transparent border-b border-slate-700 text-white font-mono text-xs sm:text-sm focus:outline-none focus:border-primary py-2 placeholder-slate-600" placeholder="E.g. What is your experience with PyTorch?" onkeypress="if(event.key === 'Enter') document.getElementById('ai-send').click()">
+                        <button id="ai-send" py-click="handle_chat" class="bg-primary/10 hover:bg-primary text-primary hover:text-darkBg border border-primary px-4 py-2 rounded text-xs sm:text-sm transition-colors font-bold shadow-[0_0_10px_rgba(0,240,255,0.2)] flex items-center justify-center min-w-[80px]">
+                            Send
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Projects Section -->
     <section id="projects" class="py-16 md:py-24 px-4 sm:px-6 relative">
         <div class="max-w-6xl mx-auto">
             <div class="flex items-center gap-4 mb-10 md:mb-16 gs-reveal">
-                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold font-mono text-white whitespace-nowrap"><span class="text-primary">04.</span> Selected Models</h2>
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold font-mono text-white whitespace-nowrap"><span class="text-primary">05.</span> Selected Models</h2>
                 <div class="h-px bg-slate-700 flex-grow"></div>
             </div>
 
@@ -534,7 +604,7 @@ out = model.generate()
     <!-- Contact Section -->
     <section id="contact" class="py-16 md:py-24 px-4 sm:px-6 relative bg-slate-900/30">
         <div class="max-w-3xl mx-auto text-center gs-reveal">
-            <h2 class="text-primary font-mono mb-2 sm:mb-4 text-sm sm:text-base">05. What's Next?</h2>
+            <h2 class="text-primary font-mono mb-2 sm:mb-4 text-sm sm:text-base">06. What's Next?</h2>
             <h3 class="text-3xl md:text-5xl font-bold text-white mb-6">Initiate Connection</h3>
             <p class="text-textMuted text-base md:text-lg mb-8 sm:mb-10">
                 Although I'm currently focusing on my primary role, my inbox is always open. Whether you have a question about machine learning, a potential collaboration, or just want to say hi, I'll try my best to get back to you!
@@ -683,7 +753,93 @@ out = model.generate()
         <p class="text-textMuted font-mono text-sm">© 2026 Data Scientist. Built with <i class="fas fa-heart text-secondary"></i> and Neural Networks.</p>
     </footer>
 
+    <!-- REAL PYTHON SCRIPT POWERED BY PYSCRIPT -->
+    <!-- This block runs actual Python code via WebAssembly in the browser -->
+    <script type="py">
+        import asyncio
+        from js import window, document
+
+        async def handle_chat(event):
+            inp = document.getElementById("ai-input")
+            btn = document.getElementById("ai-send")
+            term = document.getElementById("py-output")
+            
+            query = inp.value.strip()
+            if not query:
+                return
+                
+            # Clear input and disable button during processing
+            inp.value = ""
+            btn.disabled = True
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>'
+            
+            # Print User message to terminal
+            term.innerHTML += f"\n<span style='color:#e2e8f0;'>user@portfolio:~$</span> {query}\n"
+            term.innerHTML += "<span id='typing-indicator' style='color:#94a3b8;'>AI is computing...</span>\n"
+            term.scrollTop = term.scrollHeight
+            
+            try:
+                # Python awaits the JavaScript function that calls the Gemini API
+                response_promise = window.fetchGeminiAPI(query)
+                response = await response_promise
+                
+                # Remove typing indicator
+                indicator = document.getElementById('typing-indicator')
+                if indicator:
+                    indicator.remove()
+                
+                # Print AI response
+                term.innerHTML += f"<span style='color:#00f0ff;'>AI_Agent:</span> {response}\n"
+                
+            except Exception as e:
+                indicator = document.getElementById('typing-indicator')
+                if indicator:
+                    indicator.remove()
+                term.innerHTML += f"\n<span style='color:#ff003c;'>System Error:</span> {str(e)}\n"
+            
+            # Re-enable button and scroll to bottom
+            btn.disabled = False
+            btn.innerHTML = 'Send'
+            term.scrollTop = term.scrollHeight
+            
+            # Set focus back to input field for continuous typing
+            inp.focus()
+    </script>
+
     <script>
+        // --- GEMINI LLM API INTEGRATION ---
+        window.fetchGeminiAPI = async function(query) {
+            // The Canvas environment injects the key automatically
+            const apiKey = ""; 
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+            
+            // This prompt tells the AI how to behave!
+            const systemPrompt = "You are a highly intelligent, concise, and helpful AI assistant embedded in Chandan Sharma's Data Science portfolio. Act tech-savvy. Keep answers to 1-3 short sentences. Respond in plain text suitable for a code terminal (no markdown bolding). Chandan is a Data Scientist specializing in ML, Python, AWS, and LLMs.";
+            
+            const payload = {
+                contents: [{ parts: [{ text: query }] }],
+                systemInstruction: { parts: [{ text: systemPrompt }] }
+            };
+            
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const result = await response.json();
+                
+                if (result.candidates && result.candidates[0].content.parts[0].text) {
+                    return result.candidates[0].content.parts[0].text;
+                } else {
+                    return "Neural network processing error. No output generated.";
+                }
+            } catch (error) {
+                console.error("API Error:", error);
+                return "Connection to Gemini LLM failed. Check network link.";
+            }
+        }
+
         // --- AWESOME CURSOR LOGIC ---
         // Detect if device supports fine pointing (mouse) vs coarse (touch)
         const isTouchDevice = window.matchMedia("(pointer: coarse)").matches;
