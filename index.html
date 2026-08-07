@@ -194,6 +194,16 @@
             50% { transform: translateY(-20px) rotate(2deg); }
             100% { transform: translateY(0px) rotate(0deg); }
         }
+        
+        /* Force Solid Navbar on Mobile */
+        @media (max-width: 768px) {
+            #navbar {
+                background-color: #0b0f19 !important;
+                border-bottom: 1px solid #1e293b !important;
+                backdrop-filter: none !important;
+                -webkit-backdrop-filter: none !important;
+            }
+        }
     </style>
 </head>
 <body class="antialiased font-sans selection:bg-primary selection:text-darkBg">
@@ -230,7 +240,7 @@
             </div>
         </div>
         <!-- Mobile Menu -->
-        <div class="hidden md:hidden absolute w-full top-16 bg-darkBg/98 backdrop-blur-xl border-b border-slate-800 shadow-2xl" id="mobile-menu">
+        <div class="hidden md:hidden absolute w-full top-16 bg-darkBg border-b border-slate-800 shadow-2xl" id="mobile-menu">
             <div class="px-4 pt-4 pb-6 space-y-2 font-mono text-center flex flex-col">
                 <a href="#home" onclick="document.getElementById('mobile-menu').classList.add('hidden')" class="block px-4 py-3 hover:text-primary border-b border-slate-800/50 w-full text-left sm:text-center">01. Home</a>
                 <a href="#about" onclick="document.getElementById('mobile-menu').classList.add('hidden')" class="block px-4 py-3 hover:text-primary border-b border-slate-800/50 w-full text-left sm:text-center">02. About</a>
@@ -310,11 +320,6 @@
                     <p>
                         I thrive in the intersection of mathematics, programming, and business strategy. Whether it's building a recommendation engine from scratch, deploying a natural language processing model, or engineering scalable data pipelines, I focus on delivering measurable impact.
                     </p>
-                    <div class="font-mono text-sm bg-gray-900 p-4 rounded border border-gray-800">
-                        <span class="text-green-400">user@system:~$</span> cat current_focus.txt<br>
-                        <span class="text-gray-300">> Researching Large Language Models (LLMs)</span><br>
-                        <span class="text-gray-300">> Optimizing time-series forecasting algorithms</span>
-                    </div>
                     <div class="font-mono text-sm bg-gray-900 p-4 rounded border border-gray-800 overflow-x-auto">
                         <span class="text-green-400">user@system:~$</span> cat current_focus.txt<br>
                         <span class="text-gray-300">> Researching Large Language Models (LLMs)</span><br>
